@@ -24,9 +24,13 @@ jobs:
         with:
           node-version: 18
 
-      # 4. Install Newman
-      - name: Install Newman
-        run: npm install -g newman
+            # 4. Run Newman Tests
+      - name: Run Newman Tests
+        run: |
+          npm install -g newman
+          newman run ShoppingWith3WebAPIs/postman/MyShoppingCollection.postman_collection.json \
+            -e ShoppingWith3WebAPIs/postman/MyShoppingEnv.postman_environment.json
+
 
       # 5. Build solution
       - name: Build Solution
