@@ -1,0 +1,18 @@
+# .github/workflows/api-ci.yml
+name: API Integration Tests
+on:
+push:
+pull_request:
+jobs:
+api-tests:
+runs-on: ubuntu-latest
+steps:
+# 1. Checkout the repo
+- uses: actions/checkout@v4
+# 2. Setup .NET
+- name: Setup .NET
+uses: actions/setup-dotnet@v3
+with:
+dotnet-version: 8.0.x # match your .NET version
+# 3. Setup Node (for Newman)
+- name: Setup Node
