@@ -45,3 +45,4 @@ jobs:
         run: |
           newman run postman/MyShoppingCollection.postman_collection.json \
           -e postman/MyShoppingEnv.postman_environment.json
+ 
