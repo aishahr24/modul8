@@ -28,10 +28,11 @@ jobs:
 
       # 4. Run Newman Tests (Install + Run)
       - name: Run Newman Tests
-        run: |
-          npm install -g newman
-          newman run ShoppingWith3WebAPIs/postman/MyShoppingCollection.postman_collection.json \
-            -e ShoppingWith3WebAPIs/postman/MyShoppingEnv.postman_environment.json
+  run: |
+    npm install -g newman
+    newman run modul8/ShoppingWith3WebAPIs/postman/MyShoppingCollection.postman_collection.json \
+      -e modul8/ShoppingWith3WebAPIs/postman/MyShoppingEnv.postman_environment.json
+
 
       # 5. Build solution
       - name: Build Solution
