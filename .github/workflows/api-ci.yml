@@ -11,6 +11,8 @@ jobs:
     steps:
       # 1. Checkout the repo
       - uses: actions/checkout@v4
+        with:
+          submodules: false
 
       # 2. Setup .NET
       - name: Setup .NET
@@ -24,13 +26,12 @@ jobs:
         with:
           node-version: 18
 
-            # 4. Run Newman Tests
+      # 4. Run Newman Tests (Install + Run)
       - name: Run Newman Tests
         run: |
           npm install -g newman
           newman run ShoppingWith3WebAPIs/postman/MyShoppingCollection.postman_collection.json \
             -e ShoppingWith3WebAPIs/postman/MyShoppingEnv.postman_environment.json
-
 
       # 5. Build solution
       - name: Build Solution
@@ -39,14 +40,13 @@ jobs:
       # 6. Start Web APIs
       - name: Start Web APIs
         run: |
-          dotnet run --project UsersWebAPI/UsersWebAPI.csproj &
-          dotnet run --project PaymentsWebAPI/PaymentsWebAPI.csproj &
-          dotnet run --project OrdersWebAPI/OrdersWebAPI.csproj &
+          dotnet run --project ShoppingWith3WebAPIs/UsersWebAPI/UsersWebAPI.csproj &
+          dotnet run --project ShoppingWith3WebAPIs/PaymentsWebAPI/PaymentsWebAPI.csproj &
+          dotnet run --project ShoppingWith3WebAPIs/OrdersWebAPI/OrdersWebAPI.csproj &
           sleep 20
 
-      # 7. Run Newman tests
+      # 7. Run Newman tests again toward running APIs
       - name: Run Newman Tests
         run: |
-          newman run postman/MyShoppingCollection.postman_collection.json \
-          -e postman/MyShoppingEnv.postman_environment.json
- 
+          newman run ShoppingWith3WebAPIs/postman/MyShoppingCollection.postman_collection.json \
+            -e ShoppingWith3WebAPIs/postman/MyShoppingEnv.postman_environment.json
